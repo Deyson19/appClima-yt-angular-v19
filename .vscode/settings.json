@@ -7,5 +7,14 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true
   },
-  "hide-files.files": []
+  "hide-files.files": [],
+  "angular-schematics.schematicsDefaultOptions": {
+    "angular-*": {
+      "skipStyle": true
+    },
+    "angular-component": {
+      "skipDisplayBlock": true
+    }
+  },
+  "exportall.config.folderListener": ["/src/app/shared"]
 }
