@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment.development';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IResponseWeather } from '../interfaces/IResponseWeather';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
