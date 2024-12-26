@@ -16,6 +16,7 @@ import { ErrorComponent, SearchComponent } from '../../shared';
 import { WeatherCardComponent } from '../../core/components/weather-card/weather-card.component';
 import { CommonModule } from '@angular/common';
 import { IResponseWeather } from '../../core/interfaces/IResponseWeather';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +32,7 @@ import { IResponseWeather } from '../../core/interfaces/IResponseWeather';
 })
 export class HomeComponent implements OnInit {
   private readonly _climaService = inject(ClimaService);
+  private readonly toast = inject(ToastrService);
   public getImage: string = 'imageClima.png';
 
   //*Propiedades
@@ -43,6 +45,7 @@ export class HomeComponent implements OnInit {
 
   onSubmit() {
     this.showSpinner = true;
+    this.toast.info(`Buscar clima de: ${this.nombreCiudad}`);
     this._climaService.findWeather(this.nombreCiudad).subscribe({
       next: (response) => {
         if (response.cod === 200) {
@@ -59,11 +62,11 @@ export class HomeComponent implements OnInit {
             feels_like: response.main.feels_like,
             pressure: response.main.pressure,
           });
+          this.toast.success('Solicitud realizada exitosamente.', 'OK');
         }
       },
       error: (error: HttpErrorResponse) => {
-        console.log(error);
-
+        this.toast.error('Error al realizar la solicitud', 'Error');
         if (error.status == 401) {
           this.errorMessage = 'El token no es correcto.';
         } else if (error.status == 404) {
